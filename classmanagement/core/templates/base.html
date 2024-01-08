@@ -12,7 +12,7 @@
             <a href="/" class="text-xl font-semibold">Classes Management</a>
 
             <div class="space-x-6">
-
+                {{request.user.is_authenticated}}
                 {% if request.user.is_authenticated %}
                     <a href="#" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Class List</a>
                     <a href="#" class="px-6 py-3 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700">Dashboard</a>

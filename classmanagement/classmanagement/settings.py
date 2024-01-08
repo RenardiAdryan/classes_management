@@ -55,7 +55,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+#login by EMAIL not username
+AUTHENTICATION_BACKENDS = [
+    'classmanagement.backends.ExtendedUserModelBackend',
+    ]
 
 ROOT_URLCONF = 'classmanagement.urls'
 
