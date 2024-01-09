@@ -32,8 +32,10 @@ def logout_view(request):
 @login_required
 def home(request):
     if request.method == 'GET':
+        classes = Classes.objects.filter().order_by("created_at")
         teachers = User.objects.filter(teacher__isnull=False)
         context={
+            "classes": classes,
             "teachers": teachers
         }
         return render(request, 'core/home.html',context)
