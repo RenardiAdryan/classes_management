@@ -43,6 +43,77 @@
 
 
 
+
+   {% comment %} content in center {% endcomment %}
+   <div class="ms-[255px] min-h-full">
+
+      <div class="flex justify-between items-center text-2xl font-bold mx-6 my-9">
+         <h2> Class Name </h2>
+         <div class="flex justify-between items-center" >
+         <a href="{% url 'core:logout' %}" class="mx-2 px-3 py-3 text-lg font-semibold bg-yellow-500 text-white rounded-xl hover:bg-gray-700">Download</a>
+         <a href="{% url 'core:logout' %}" class="mx-2 px-3 py-3 text-lg font-semibold bg-yellow-500 text-white rounded-xl hover:bg-gray-700">Manage</a>
+         </div>
+      </div>
+
+      <div class="relative overflow-x-auto">
+         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+               <tr>
+                     <th scope="col" class="px-6 py-3">
+                        Name
+                     </th>
+                     <th scope="col" class="px-6 py-3">
+                        Role
+                     </th>
+                     
+               </tr>
+            </thead>
+            <tbody>
+               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        Apple MacBook Pro 17"
+                     </th>
+                     <td class="px-6 py-4">
+                        Silver
+                     </td>
+                    
+               </tr>
+               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        Microsoft Surface Pro
+                     </th>
+                     <td class="px-6 py-4">
+                        White
+                     </td>
+                     
+               </tr>
+               <tr class="bg-white dark:bg-gray-800">
+                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        Magic Mouse 2
+                     </th>
+                     <td class="px-6 py-4">
+                        Black
+                     </td>
+                     
+               </tr>
+            </tbody>
+         </table>
+      </div>
+
+
+
+   </div>
+
+
+
+
+
+
+
+
+
+
+
  
  <!-- drawer component -->
  <div id="drawer-right-example" class="fixed top-20 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-white w-80 dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-right-label">
