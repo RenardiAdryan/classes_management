@@ -1,9 +1,10 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, get_user_model, login, logout
-
+from django.contrib.auth.decorators import login_required
+from core.models import *
 # Create your views here.
-def home(request):
-    return render(request, 'core/home.html')
+def landing(request):
+    return render(request, 'landing.html')
 
 def login_view(request):
     if request.method == 'GET':
@@ -21,4 +22,33 @@ def login_view(request):
     
 def logout_view(request):
     logout(request)
-    return redirect('core:home')
+    return redirect('core:landing')
+
+
+
+
+
+#AUTHENTTICATION NEEDED
+@login_required
+def home(request):
+    if request.method == 'GET':
+        teachers = User.objects.filter(teacher__isnull=False)
+        context={
+            "teachers": teachers
+        }
+        return render(request, 'core/home.html',context)
+    else:
+
+        if 'create-classes' in request.POST:
+
+            name = request.POST.get('name',None)
+            teacher_assignee = request.POST.get('assignee',None)
+   
+            user = User.objects.get(id=teacher_assignee)
+
+            Classes.objects.create(
+                name = name,
+                teacher = user.teacher
+            )
+
+        return redirect('core:home') 

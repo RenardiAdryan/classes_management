@@ -20,11 +20,12 @@
                    </button>
                   <a href="https://flowbite.com" class="flex ms-2 md:me-24">
                     <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" />
-                    <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Flowbite</span>
+                    <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Class Management</span>
                   </a>
                 </div>
 
                 {% if request.user.is_authenticated %}
+                <a href="{% url 'core:logout' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-gray-700">Log out</a>
                     <div class="flex items-center">
                         <div class="flex items-center ms-3">
                         <div>
@@ -51,6 +52,7 @@
                         </div>
                     </div>
                     </div>
+                    
                 {% else %}
                 <a href="{% url 'core:login' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-gray-700">Log in</a>
                 {% endif %}
@@ -64,7 +66,7 @@
         </div>
 
 
-        <footer class="fixed bottom-0 left-0 z-20 w-full p-4 bg-gray-200 border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600">
+        <footer class="fixed bottom-0 left-0 z-50 w-full p-4 bg-gray-200 border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600">
             <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a href="https://github.com/RenardiAdryan" class="hover:underline">Renardi™</a>. All Rights Reserved.
             </span>
             <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">

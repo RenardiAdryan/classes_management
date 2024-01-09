@@ -1,2 +1,4 @@
 .env
 notebook
+__pycache__/
+classmanagement/core/__pycache__/
