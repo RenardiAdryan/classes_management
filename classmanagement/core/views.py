@@ -51,7 +51,8 @@ def home(request):
             )
 
         return redirect('core:home') 
-
+    
+@login_required
 def class_detail(request,id):
     classes = Classes.objects.get(id=id)
     context={
