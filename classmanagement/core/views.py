@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from core.models import *
+from django.http import HttpResponse
 # Create your views here.
 def landing(request):
     return render(request, 'landing.html')
@@ -23,10 +24,6 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('core:landing')
-
-
-
-
 
 #AUTHENTTICATION NEEDED
 @login_required
@@ -54,3 +51,10 @@ def home(request):
             )
 
         return redirect('core:home') 
+
+def class_detail(request,id):
+    classes = Classes.objects.get(id=id)
+    context={
+        "classes": classes
+    }
+    return render(request, 'core/class-detail.html',context)

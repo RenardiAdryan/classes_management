@@ -27,7 +27,14 @@
          {% comment %} Class List {% endcomment %}
          {% for class in classes %}  
          <li>
-            <a class="flex cursor-pointer items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <a class="flex cursor-pointer items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+            
+            hx-get="{% url 'core:class_detail' class.id  %}"
+            hx-target="#content-section"
+            hx-trigger="click"
+            hx-vals='{"drawer_type":"new-license","type":"manual-input"}'
+            
+            >
                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
                   <path d="M16 14V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h12a1 1 0 0 0 0-2h-1v-2a2 2 0 0 0 2-2ZM4 2h2v12H4V2Zm8 16H3a1 1 0 0 1 0-2h9v2Z"/>
                </svg>
@@ -41,77 +48,13 @@
  </aside>
 
 
-
-
-   {% comment %} content in center {% endcomment %}
+<div id="content-section" >
    <div class="ms-[255px] min-h-full">
-
       <div class="flex justify-between items-center text-2xl font-bold mx-6 my-9">
-         <h2> Class Name </h2>
-         <div class="flex justify-between items-center" >
-         <a href="{% url 'core:logout' %}" class="mx-2 px-3 py-3 text-lg font-semibold bg-yellow-500 text-white rounded-xl hover:bg-gray-700">Download</a>
-         <a href="{% url 'core:logout' %}" class="mx-2 px-3 py-3 text-lg font-semibold bg-yellow-500 text-white rounded-xl hover:bg-gray-700">Manage</a>
-         </div>
+         <h1> No Class Selected </h1>
       </div>
-
-      <div class="relative overflow-x-auto">
-         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-               <tr>
-                     <th scope="col" class="px-6 py-3">
-                        Name
-                     </th>
-                     <th scope="col" class="px-6 py-3">
-                        Role
-                     </th>
-                     
-               </tr>
-            </thead>
-            <tbody>
-               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        Apple MacBook Pro 17"
-                     </th>
-                     <td class="px-6 py-4">
-                        Silver
-                     </td>
-                    
-               </tr>
-               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        Microsoft Surface Pro
-                     </th>
-                     <td class="px-6 py-4">
-                        White
-                     </td>
-                     
-               </tr>
-               <tr class="bg-white dark:bg-gray-800">
-                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        Magic Mouse 2
-                     </th>
-                     <td class="px-6 py-4">
-                        Black
-                     </td>
-                     
-               </tr>
-            </tbody>
-         </table>
-      </div>
-
-
-
    </div>
-
-
-
-
-
-
-
-
-
-
+</div>
 
  
  <!-- drawer component -->
