@@ -54,8 +54,25 @@ def home(request):
     
 @login_required
 def class_detail(request,id):
-    classes = Classes.objects.get(id=id)
-    context={
-        "classes": classes
-    }
-    return render(request, 'core/class-detail.html',context)
+    if request.method=="GET":
+        clas = Classes.objects.get(id=id)
+        teachers = User.objects.filter(teacher__isnull=False)
+        context={
+            "teachers": teachers,
+            "clas":clas
+        }
+        return render(request, 'core/class-detail.html',context)
+    else:
+        if 'manage-classes' in request.POST:
+            name = request.POST.get('name',None)
+            teacher_assignee = request.POST.get('assignee',None)
+            user = User.objects.get(id=teacher_assignee)
+            classes = Classes.objects.get(
+                id=id
+            )
+            classes.name=name
+            classes.teacher = user.teacher
+            classes.save()
+
+
+        return redirect('core:home') 

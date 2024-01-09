@@ -12,4 +12,5 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('class/<uuid:id>/', views.class_detail, name='class_detail')
     
+    
 ]

@@ -31,7 +31,7 @@ class Teacher(models.Model):
 
 class Classes(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    teacher = models.OneToOneField(Teacher,on_delete=models.CASCADE,blank=True,null=True)
+    teacher = models.ForeignKey(Teacher,on_delete=models.CASCADE,blank=True,null=True)
     student = models.ManyToManyField(User, blank=True)
     name = models.CharField(max_length=500, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
