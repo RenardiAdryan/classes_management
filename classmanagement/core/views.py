@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,reverse
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from core.models import *
@@ -33,6 +33,9 @@ def home(request):
     if request.method == 'GET':
         classes = Classes.objects.filter().order_by("created_at")
         teachers = User.objects.filter(teacher__isnull=False)
+
+        print("reverse('core:home'): ", reverse('core:home'))
+
         context={
             "classes": classes,
             "teachers": teachers
@@ -44,12 +47,12 @@ def home(request):
             name = request.POST.get('name',None)
             teacher_assignee = request.POST.get('assignee',None)
             user = User.objects.get(id=teacher_assignee)
-            Classes.objects.create(
+            class_ = Classes.objects.create(
                 name = name,
                 teacher = user.teacher
             )
 
-        return redirect('core:home') 
+        return redirect(reverse('core:home')+f"?class_id={class_.id}")
     
 @login_required
 def class_detail(request,id):
@@ -77,6 +80,7 @@ def class_detail(request,id):
             classes = Classes.objects.get(
                 id=id
             ).delete()
+
         elif 'delete-student' in request.POST:
             student_id = request.POST.get('student',None)
             user = User.objects.get(id=student_id)
@@ -84,4 +88,4 @@ def class_detail(request,id):
                 id=id
             )
             classes.student.remove(user)
-        return redirect('core:home') 
+        return redirect(reverse('core:home')+f"?class_id={id}")
