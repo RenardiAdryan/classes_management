@@ -22,7 +22,8 @@ def login_view(request):
             return redirect('core:home')
         else:
             return render(request, 'login.html')
-    
+            
+@login_required    
 def logout_view(request):
     logout(request)
     return redirect('core:landing')
