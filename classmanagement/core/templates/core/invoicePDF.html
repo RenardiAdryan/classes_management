@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        
+        <title>{{clas.name}}</title>
+
+        <style type="text/css">  
+            @page  {    
+               size: a4;
+               margin: 2cm;
+            }
+
+            html {
+                margin: 0; 
+                padding: 0;
+                font-family: Helvetica;
+            }
+            .hrItem {
+               border: none;
+               height: 1px;
+               /* Set the hr color */
+               color: #333; /* old IE */
+               background-color: #fff; /* Modern Browsers */
+           }
+           .tab {
+                display: inline-block;
+                width: 100%;
+            }
+            div {
+                font-family: HeiseiKakuGo-W5
+             }
+            tr { font-family: HeiseiKakuGo-W5
+             }
+            td { 
+                font-size: 13px;
+                text-align: left;
+                width: auto;
+            }
+            
+        </style>
+
+      </head>
+      
+      <div class="my-8 mx-[255px] min-h-full">
+
+        <div class="flex justify-between items-center text-2xl font-bold mx-6 my-9">
+           <h2> Class Name: {{clas.name}} </h2>
+        </div>
+
+         <div class="relative overflow-x-auto">
+           <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+              <thead class="text-xl text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                 <tr>
+                    <th class="">
+                     <h2> Name </h2>
+                    </th>
+                    <th class="">
+                       
+                    </th>
+                 </tr>
+              </thead>
+              <tbody class="text-l" >
+  
+                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                       {{clas.teacher.name}}
+                    </th>
+                    <td class="px-6 py-4">
+                       Teacher
+                    </td>
+                 </tr>
+  
+                 {% for student in clas.student.all %} 
+  
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                       <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                          {{student.name}}
+                       </th>
+                       <td class="px-6 py-4">
+                          Student
+                       </td>
+                       
+                    </tr>
+  
+                 {% endfor %}
+  
+              </tbody>
+           </table>
+         </div>
+      </div>
+
+    <body>
+        
+    </body>
+</html>

@@ -9,9 +9,14 @@
       <div class="flex justify-between items-center text-2xl font-bold mx-6 my-9">
          <h2> {{clas.name}} </h2>
          <div class="flex justify-between items-center" >
-         <a href="{% url 'core:logout' %}" class="mx-2 px-3 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-gray-700">Download</a>
+
+         <form method="POST" action="{% url 'core:class_manage' clas.id %}" >
+            {% csrf_token %}
+            <button type="submit" name="download-classes" class="mx-2 px-3 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-gray-700">Download</button>
+         </form>
          <a onclick="toggleDrawer('manage-class-drawer')" class="mx-2 px-3 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-gray-700">Manage</a>
-         </div>
+         
+      </div>
       </div>
 
       <div class="relative overflow-x-auto">

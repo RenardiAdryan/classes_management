@@ -17,5 +17,7 @@ urlpatterns = [
     path('student/manage/<uuid:id>/', views.student_manage, name='student_manage'),
 
     path('teacher/', views.teacher, name='teacher'),
-    path('teacher/manage/<uuid:id>/', views.teacher_manage, name='teacher_manage')
+    path('teacher/manage/<uuid:id>/', views.teacher_manage, name='teacher_manage'),
+
+    path('api/download_classes/', views.download_classes, name='download_classes')
 ]

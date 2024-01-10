@@ -3,6 +3,8 @@ from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from core.models import *
 from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
 # Create your views here.
 def landing(request):
     return render(request, 'landing.html')
@@ -104,6 +106,19 @@ def class_manage(request,id):
             student = Student.objects.get(id=student_id)
             classes.student.remove(student)
 
+        elif 'download-classes' in request.POST:
+            template_path = 'core/invoicePDF.html'
+            response = HttpResponse(content_type='application/pdf')
+            name_pdf = classes.name + ".pdf"
+            response['Content-Disposition'] = 'attachment; filename='+name_pdf
+
+            template = get_template(template_path)
+            html = template.render({'clas':classes})
+
+            pisa_status = pisa.CreatePDF(html, dest=response)
+
+            return response
+
         return redirect(reverse("core:home",args=[id]))
     
     return redirect('core:home')
@@ -173,3 +188,30 @@ def teacher_manage(request, id):
             teacher.save()
 
     return redirect('core:teacher')
+
+
+
+@login_required
+def download_classes(request):
+    if request.method == 'POST':
+        template_path = 'core/invoicePDF.html'
+        response = HttpResponse(content_type='application/pdf')
+        name_pdf = "ALL Classes" + ".pdf"
+        response['Content-Disposition'] = 'attachment; filename='+name_pdf
+
+        # Start the PDF document
+        html = "<html><body>"
+
+        classes = Classes.objects.filter().order_by("-created_at")
+        for class_ in classes:
+            template = get_template(template_path)
+            html += template.render({'clas':class_})
+            html +="<hr width='100%' size='2' color='black' noshade>"
+
+        # End the PDF document
+        html += "</body></html>"
+
+        pisa_status = pisa.CreatePDF(html, dest=response)
+
+        return response
+    return redirect('core:home')
