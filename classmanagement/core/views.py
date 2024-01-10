@@ -22,7 +22,7 @@ def login_view(request):
             return redirect('core:home')
         else:
             return render(request, 'login.html')
-            
+
 @login_required    
 def logout_view(request):
     logout(request)
@@ -38,6 +38,7 @@ def home(request,id=None):
     if request.method == 'GET':
         classes = Classes.objects.filter().order_by("-created_at")
         teachers = User.objects.filter(teacher__isnull=False)
+        students = User.objects.filter(student__isnull=False)
 
         clas=None
         if id:
@@ -46,6 +47,7 @@ def home(request,id=None):
         context={
             "classes": classes,
             "teachers": teachers,
+            "students":students,
             "clas":clas
         }
         return render(request, 'core/home.html',context)
@@ -55,11 +57,20 @@ def home(request,id=None):
         if 'create-classes' in request.POST:
             name = request.POST.get('name',None)
             teacher_assignee = request.POST.get('assignee',None)
+            students = request.POST.get('students',None)
+
             user = User.objects.get(id=teacher_assignee)
             class_ = Classes.objects.create(
                 name = name,
                 teacher = user.teacher
             )
+
+            if students:
+                students = students.split(',')
+                for student in students:
+                    user = User.objects.get(id=student)
+                    class_.student.add(user)
+            
             return redirect(reverse("core:home",args=[class_.id]))
         
         return redirect(reverse("core:home"))
@@ -70,12 +81,21 @@ def class_manage(request,id):
         if 'manage-classes' in request.POST:
             name = request.POST.get('name',None)
             teacher_assignee = request.POST.get('assignee',None)
+            students = request.POST.get('students',None)
             user = User.objects.get(id=teacher_assignee)
             classes = Classes.objects.get(
                 id=id
             )
             classes.name=name
             classes.teacher = user.teacher
+
+            if students:
+                classes.student.clear()
+                students = students.split(',')
+                for student in students:
+                    user = User.objects.get(id=student)
+                    classes.student.add(user)
+
             classes.save()
 
         elif 'delete-classes' in request.POST:
