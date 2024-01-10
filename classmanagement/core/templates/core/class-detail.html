@@ -49,7 +49,7 @@
                         Student
                      </td>
                      <td class="px-6 py-4">
-                        <form method="POST" action="{% url 'core:class_detail' clas.id %}" class="mb-6">
+                        <form method="POST" action="{% url 'core:class_manage' clas.id %}" class="mb-6">
                            {% csrf_token %}
                            <input hidden name="student" value="{{student.id}}" ></input>
                            <button type="submit" name="delete-student" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Delete</button>
@@ -83,7 +83,7 @@
        <span class="sr-only">Close menu</span>
     </button>
 
-   <form method="POST" action="{% url 'core:class_detail' clas.id %}" class="mb-6">
+   <form method="POST" action="{% url 'core:class_manage' clas.id %}" class="mb-6">
       {% csrf_token %}
       <div class="mb-6">
          <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Class Name</label>
@@ -106,7 +106,7 @@
       <button type="submit" name="manage-classes" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
    </form>
 
-   <form method="POST" action="{% url 'core:class_detail' clas.id %}" class="mb-6">
+   <form method="POST" action="{% url 'core:class_manage' clas.id %}" class="mb-6">
       {% csrf_token %}
       <button type="submit" name="delete-classes" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Delete</button>
    </form>

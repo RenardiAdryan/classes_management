@@ -8,9 +8,10 @@ app_name = 'core'
 urlpatterns = [
     path('', views.landing, name='landing'),
     path('home/', views.home, name='home'),
+    path('home/<uuid:id>/', views.home, name='home'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
-    path('class/<uuid:id>/', views.class_detail, name='class_detail')
+    path('class/<uuid:id>/', views.class_manage, name='class_manage')
     
     
 ]

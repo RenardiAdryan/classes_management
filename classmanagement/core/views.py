@@ -27,20 +27,28 @@ def logout_view(request):
     logout(request)
     return redirect('core:landing')
 
+
+
+
+
 #AUTHENTTICATION NEEDED
 @login_required
-def home(request):
+def home(request,id=None):
     if request.method == 'GET':
-        classes = Classes.objects.filter().order_by("created_at")
+        classes = Classes.objects.filter().order_by("-created_at")
         teachers = User.objects.filter(teacher__isnull=False)
 
-        print("reverse('core:home'): ", reverse('core:home'))
+        clas=None
+        if id:
+            clas = Classes.objects.get(id=id)
 
         context={
             "classes": classes,
-            "teachers": teachers
+            "teachers": teachers,
+            "clas":clas
         }
         return render(request, 'core/home.html',context)
+    
     else:
 
         if 'create-classes' in request.POST:
@@ -51,20 +59,13 @@ def home(request):
                 name = name,
                 teacher = user.teacher
             )
-
-        return redirect(reverse('core:home')+f"?class_id={class_.id}")
+            return redirect(reverse("core:home",args=[class_.id]))
+        
+        return redirect(reverse("core:home"))
     
 @login_required
-def class_detail(request,id):
-    if request.method=="GET":
-        clas = Classes.objects.get(id=id)
-        teachers = User.objects.filter(teacher__isnull=False)
-        context={
-            "teachers": teachers,
-            "clas":clas
-        }
-        return render(request, 'core/class-detail.html',context)
-    else:
+def class_manage(request,id):
+    if request.method=="POST":
         if 'manage-classes' in request.POST:
             name = request.POST.get('name',None)
             teacher_assignee = request.POST.get('assignee',None)
@@ -88,4 +89,7 @@ def class_detail(request,id):
                 id=id
             )
             classes.student.remove(user)
-        return redirect(reverse('core:home')+f"?class_id={id}")
+
+        return redirect(reverse("core:home",args=[id]))
+    
+    return redirect('core:home')
