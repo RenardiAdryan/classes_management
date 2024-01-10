@@ -37,8 +37,8 @@ def logout_view(request):
 def home(request,id=None):
     if request.method == 'GET':
         classes = Classes.objects.filter().order_by("-created_at")
-        teachers = User.objects.filter(teacher__isnull=False)
-        students = User.objects.filter(student__isnull=False)
+        teachers = Teacher.objects.filter().order_by("created_at")
+        students = Student.objects.filter().order_by("created_at")
 
         clas=None
         if id:
@@ -59,17 +59,16 @@ def home(request,id=None):
             teacher_assignee = request.POST.get('assignee',None)
             students = request.POST.get('students',None)
 
-            user = User.objects.get(id=teacher_assignee)
             class_ = Classes.objects.create(
                 name = name,
-                teacher = user.teacher
+                teacher = Teacher.objects.get(id=teacher_assignee)
             )
 
             if students:
                 students = students.split(',')
                 for student in students:
-                    user = User.objects.get(id=student)
-                    class_.student.add(user)
+                    student = Student.objects.get(id=student)
+                    class_.student.add(student)
             
             return redirect(reverse("core:home",args=[class_.id]))
         
@@ -78,39 +77,99 @@ def home(request,id=None):
 @login_required
 def class_manage(request,id):
     if request.method=="POST":
+        classes = Classes.objects.get(id=id)
         if 'manage-classes' in request.POST:
             name = request.POST.get('name',None)
             teacher_assignee = request.POST.get('assignee',None)
             students = request.POST.get('students',None)
-            user = User.objects.get(id=teacher_assignee)
-            classes = Classes.objects.get(
-                id=id
-            )
+            
             classes.name=name
-            classes.teacher = user.teacher
+            classes.teacher = Teacher.objects.get(id=teacher_assignee)
 
             if students:
                 classes.student.clear()
                 students = students.split(',')
                 for student in students:
-                    user = User.objects.get(id=student)
-                    classes.student.add(user)
+                    student = Student.objects.get(id=student)
+                    classes.student.add(student)
 
             classes.save()
 
         elif 'delete-classes' in request.POST:
-            classes = Classes.objects.get(
-                id=id
-            ).delete()
+            classes.delete()
+            return redirect('core:home')
 
         elif 'delete-student' in request.POST:
             student_id = request.POST.get('student',None)
-            user = User.objects.get(id=student_id)
-            classes = Classes.objects.get(
-                id=id
-            )
-            classes.student.remove(user)
+            student = Student.objects.get(id=student_id)
+            classes.student.remove(student)
 
         return redirect(reverse("core:home",args=[id]))
     
     return redirect('core:home')
+
+
+@login_required
+def student(request):
+    if request.method == 'GET':
+        page_slug='student'
+        classes = Classes.objects.filter().order_by("-created_at")
+        teachers = Teacher.objects.filter().order_by("created_at")
+        students = Student.objects.filter().order_by("created_at")
+        context={"classes": classes,
+                "teachers": teachers,
+                "students":students,
+                'page_slug':page_slug}
+        return render(request, 'core/student.html',context)
+    else:
+        name = request.POST.get('name',None)
+        Student.objects.create(
+                name = name
+            )
+        return redirect('core:student')
+    
+@login_required
+def student_manage(request, id):
+    if request.method == 'POST': 
+        student = Student.objects.get(id=id)
+        if 'delete-student' in request.POST:
+            student.delete()
+        if 'manage-student' in request.POST:
+            name = request.POST.get("name",None)
+            student.name = name
+            student.save()
+
+    return redirect('core:student')
+
+
+@login_required
+def teacher(request):
+    if request.method == 'GET':
+        page_slug='teacher'
+        classes = Classes.objects.filter().order_by("-created_at")
+        teachers = Teacher.objects.filter().order_by("created_at")
+        students = Student.objects.filter().order_by("created_at")
+        context={"classes": classes,
+                "teachers": teachers,
+                "students":students,
+                'page_slug':page_slug}
+        return render(request, 'core/teacher.html',context)
+    else:
+        name = request.POST.get('name',None)
+        Teacher.objects.create(
+                name = name
+            )
+        return redirect('core:teacher')
+    
+@login_required
+def teacher_manage(request, id):
+    if request.method == 'POST': 
+        teacher = Teacher.objects.get(id=id)
+        if 'delete-teacher' in request.POST:
+            teacher.delete()
+        if 'manage-teacher' in request.POST:
+            name = request.POST.get("name",None)
+            teacher.name = name
+            teacher.save()
+
+    return redirect('core:teacher')

@@ -10,21 +10,15 @@ from django.contrib.auth.models import User
 
 
 class Student(models.Model):
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_query_name="student"
-    )
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=500, null=True, blank=True)
     grade=models.CharField(max_length=500, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(default=timezone.now)
 
 class Teacher(models.Model):
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_query_name="teacher"
-    )
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=500, null=True, blank=True)
     major=models.CharField(max_length=500, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(default=timezone.now)
@@ -32,7 +26,7 @@ class Teacher(models.Model):
 class Classes(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     teacher = models.ForeignKey(Teacher,on_delete=models.CASCADE,blank=True,null=True)
-    student = models.ManyToManyField(User, blank=True)
+    student = models.ManyToManyField(Student, blank=True)
     name = models.CharField(max_length=500, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(default=timezone.now)
