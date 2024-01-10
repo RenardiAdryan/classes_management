@@ -193,7 +193,7 @@ def teacher_manage(request, id):
 
 @login_required
 def download_classes(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
         template_path = 'core/invoicePDF.html'
         response = HttpResponse(content_type='application/pdf')
         name_pdf = "ALL Classes" + ".pdf"
