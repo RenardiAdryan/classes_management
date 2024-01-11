@@ -1,11 +1,12 @@
 from django.contrib.auth import views as auth_views
 from django.urls import path
-
+from django.contrib import admin
 from . import views
 
 app_name = 'core'
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('', views.home, name='main'),
     path('<uuid:id>/', views.home, name='main'),
     path('login/', views.login_view, name='login'),
