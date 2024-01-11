@@ -29,10 +29,11 @@
 2. docker compose up --build
 ### Setup App.
 1. Create Python VENV
-2. Install pkg in requirements.txt -> pip install -r requirements.txt
+2. Install pkg in requirements.txt -> `pip install -r requirements.txt`
 3. Go to directory that has manage.py in it.
-4. python manage.py migrate
-5. python manage.py runserver
+4. `python manage.py migrate`
+5. `echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@example.com', 'admin')" | python manage.py shell`
+6. `python manage.py runserver`
 ### ENV File Example. (Create env file beside manage.py file)
 - ALLOWED_HOSTS=localhost,127.0.0.1,143.198.54.56,app.localhost
 - DB_ENGINE=django.db.backends.postgresql
@@ -46,7 +47,8 @@
 - PARENT_HOST=localhost:8000
 - SECRET_KEY=django-insecure-k@!av=#$4b6^@vqd$ovvf^o2w@)&%k36px@4rbk0ab+l$xkml)
 - CSRF_TRUSTED_ORIGINS=http://localhost:8000,http://app.localhost:8000
-### Demo Video
+### Demo Video 
 [![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/1AgfD2O2kww/0.jpg)](http://www.youtube.com/watch?v=1AgfD2O2kww)
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/bJurNa5Ehbw/0.jpg)](http://www.youtube.com/watch?v=bJurNa5Ehbw)
 
 
