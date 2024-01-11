@@ -27,5 +27,5 @@ COPY . /classmanagement
 # 3. Install packages in requirements.txt
 RUN python -m pip install -r requirements.txt
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "sanka.wsgi"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "classmanagement.wsgi"]
 
