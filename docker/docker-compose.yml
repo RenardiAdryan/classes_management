@@ -13,5 +13,24 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
+
+web:
+    build:
+      context: ../.
+      dockerfile: ./Dockerfile
+    command:
+      - /bin/bash
+      - -c
+      - |
+        pip install -r requirements.txt
+        python manage.py runserver 0.0.0.0:8000
+        gunicorn --bind 0.0.0.0:8000 classmanagement.wsgi:application --reload
+    volumes:
+      - ../:/clasesManagement
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
 volumes:
   pgdata:
