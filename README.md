@@ -43,7 +43,6 @@
 - DB_PASS=test
 - DB_HOST=127.0.0.1
 - DB_PORT=5433
-- PARENT_HOST=localhost:8000
 - SITE_ID=2
 - PARENT_HOST=localhost:8000
 - SECRET_KEY=django-insecure-k@!av=#$4b6^@vqd$ovvf^o2w@)&%k36px@4rbk0ab+l$xkml)
