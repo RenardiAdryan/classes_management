@@ -6,10 +6,7 @@ from core.models import *
 from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
-# Create your views here.
-def landing(request):
-    print("MASUK landing dalam aPP")
-    return render(request, 'landing.html')
+
 
 def login_view(request):
     if request.method == 'GET':
