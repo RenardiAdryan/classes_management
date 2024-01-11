@@ -47,6 +47,6 @@
 - SECRET_KEY=django-insecure-k@!av=#$4b6^@vqd$ovvf^o2w@)&%k36px@4rbk0ab+l$xkml)
 - CSRF_TRUSTED_ORIGINS=http://localhost:8000,http://app.localhost:8000
 ### Demo Video
-
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/1AgfD2O2kww/0.jpg)](http://www.youtube.com/watch?v=1AgfD2O2kww)
 
 
