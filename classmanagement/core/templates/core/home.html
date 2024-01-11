@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load hosts %}
 {% load i18n %}
 {% load static %}
 
@@ -29,7 +30,7 @@
          {% comment %} Class List {% endcomment %}
          {% for class in classes %}  
          <li>
-            <a href="{% url 'core:home' class.id  %}" class="flex cursor-pointer {% if class == clas %} bg-sky-300 hover:bg-sky-400 {% endif %} items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <a href="{% host_url 'main' class.id host 'app' %}" class="flex cursor-pointer {% if class == clas %} bg-sky-300 hover:bg-sky-400 {% endif %} items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
                   <path d="M16 14V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h12a1 1 0 0 0 0-2h-1v-2a2 2 0 0 0 2-2ZM4 2h2v12H4V2Zm8 16H3a1 1 0 0 1 0-2h9v2Z"/>
                </svg>
@@ -44,7 +45,7 @@
             <div>Download</div>
          </div>
          <li>
-            <a href="{% url 'core:download_classes'  %}" class="flex cursor-pointer items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <a href="{% host_url 'download_classes' host 'app' %}" class="flex cursor-pointer items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo8/dist/../src/media/svg/icons/Files/DownloadedFile.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                   <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                       <polygon points="0 0 24 0 24 24 0 24"/>
@@ -62,7 +63,7 @@
          </div>
 
          <li>
-            <a href="{% url 'core:student' %}" class="flex {% if page_slug == 'student' %} bg-sky-300 hover:bg-sky-400 {% endif %} cursor-pointer items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <a href="{% host_url 'student' host 'app' %}" class="flex {% if page_slug == 'student' %} bg-sky-300 hover:bg-sky-400 {% endif %} cursor-pointer items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
                   <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
                   <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"/>
@@ -72,7 +73,7 @@
          </li>
 
          <li>
-            <a href="{% url 'core:teacher' %}" class="flex {% if page_slug == 'teacher' %} bg-sky-300 hover:bg-sky-400 {% endif %} cursor-pointer items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <a href="{% host_url 'teacher' host 'app' %}" class="flex {% if page_slug == 'teacher' %} bg-sky-300 hover:bg-sky-400 {% endif %} cursor-pointer items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
                   <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
                   <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"/>
@@ -114,7 +115,7 @@
        <span class="sr-only">Close menu</span>
     </button>
 
-   <form method="POST" action="{% url 'core:home' %}" class="mb-6">
+   <form method="POST" action="{% host_url 'main' host 'app' %}" class="mb-6">
       {% csrf_token %}
       <div class="mb-6">
          <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Class Name</label>

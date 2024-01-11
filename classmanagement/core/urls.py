@@ -6,9 +6,8 @@ from . import views
 app_name = 'core'
 
 urlpatterns = [
-    path('', views.landing, name='landing'),
-    path('home/', views.home, name='home'),
-    path('home/<uuid:id>/', views.home, name='home'),
+    path('', views.home, name='main'),
+    path('<uuid:id>/', views.home, name='main'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('class/<uuid:id>/', views.class_manage, name='class_manage'),

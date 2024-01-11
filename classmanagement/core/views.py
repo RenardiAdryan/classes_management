@@ -1,4 +1,5 @@
-from django.shortcuts import render,redirect,reverse
+from django.shortcuts import render,redirect
+from django_hosts.resolvers import reverse
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from core.models import *
@@ -7,12 +8,13 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 # Create your views here.
 def landing(request):
+    print("MASUK landing dalam aPP")
     return render(request, 'landing.html')
 
 def login_view(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
-            return redirect('core:home')
+            return redirect('main')
         
         return render(request, 'login.html')
     else:
@@ -21,14 +23,14 @@ def login_view(request):
         user_auth = authenticate(request=request, email=email, password=password)
         if user_auth:
             login(request, user_auth)
-            return redirect('core:home')
+            return redirect('main')
         else:
             return render(request, 'login.html')
 
 @login_required    
 def logout_view(request):
     logout(request)
-    return redirect('core:landing')
+    return redirect(reverse('home', host='static'))
 
 
 
@@ -72,9 +74,9 @@ def home(request,id=None):
                     student = Student.objects.get(id=student)
                     class_.student.add(student)
             
-            return redirect(reverse("core:home",args=[class_.id]))
+            return redirect(reverse("main",host="app",args=[class_.id]))
         
-        return redirect(reverse("core:home"))
+        return redirect(reverse("main",host="app"))
     
 @login_required
 def class_manage(request,id):
@@ -99,7 +101,7 @@ def class_manage(request,id):
 
         elif 'delete-classes' in request.POST:
             classes.delete()
-            return redirect('core:home')
+            return redirect('main')
 
         elif 'delete-student' in request.POST:
             student_id = request.POST.get('student',None)
@@ -118,10 +120,10 @@ def class_manage(request,id):
             pisa_status = pisa.CreatePDF(html, dest=response)
 
             return response
-
-        return redirect(reverse("core:home",args=[id]))
+        
+        return redirect(reverse('main',host='app',args=[str(id)]))
     
-    return redirect('core:home')
+    return redirect('main')
 
 
 @login_required
@@ -141,7 +143,7 @@ def student(request):
         Student.objects.create(
                 name = name
             )
-        return redirect('core:student')
+        return redirect('student')
     
 @login_required
 def student_manage(request, id):
@@ -154,7 +156,7 @@ def student_manage(request, id):
             student.name = name
             student.save()
 
-    return redirect('core:student')
+    return redirect('student')
 
 
 @login_required
@@ -174,7 +176,7 @@ def teacher(request):
         Teacher.objects.create(
                 name = name
             )
-        return redirect('core:teacher')
+        return redirect('teacher')
     
 @login_required
 def teacher_manage(request, id):
@@ -187,7 +189,7 @@ def teacher_manage(request, id):
             teacher.name = name
             teacher.save()
 
-    return redirect('core:teacher')
+    return redirect('teacher')
 
 
 
@@ -214,4 +216,4 @@ def download_classes(request):
         pisa_status = pisa.CreatePDF(html, dest=response)
 
         return response
-    return redirect('core:home')
+    return redirect('main')

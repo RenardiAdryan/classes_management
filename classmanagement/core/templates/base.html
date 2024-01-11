@@ -1,5 +1,5 @@
 <!doctype html>
-
+{% load hosts %}
 <html>
     
     {% include 'head.html' %}
@@ -12,7 +12,7 @@
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
               <div class="flex items-center justify-between">
                 <div class="flex items-center justify-start rtl:justify-end">
-                  <a href="{% url 'core:home' %}" class="flex ms-2 md:me-24">
+                  <a href="{% host_url 'main' host 'app' %}" class="flex ms-2 md:me-24">
                     <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" />
                     <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Class Management</span>
                   </a>
@@ -39,7 +39,7 @@
                             </div>
                             <ul class="py-1" role="none">
                             <li>
-                                <a href="{% url 'core:logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</a>
+                                <a href="{% host_url 'logout' host 'app' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</a>
                             </li>
                             </ul>
                         </div>
@@ -48,7 +48,7 @@
                     </div>
                     
                 {% else %}
-                <a href="{% url 'core:login' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-gray-700">Log in</a>
+                <a href="{% host_url 'login' host 'app' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-gray-700">Log in</a>
                 {% endif %}
             </div>
         </nav>

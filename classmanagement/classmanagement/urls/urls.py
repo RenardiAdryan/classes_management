@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from django.conf.urls.i18n import i18n_patterns
+from classmanagement import public
 
+app_name = "classmanagement"
 urlpatterns = [
-    path('', include('core.urls')),
-    path('admin/', admin.site.urls),
+    # Static Pages
+    path('', public.home, name='home'),
 ]

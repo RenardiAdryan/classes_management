@@ -32,8 +32,10 @@ SECRET_KEY = 'django-insecure-ut@z#83%r3b3rid%+a5a(3c!3t1omv(@3bbc0z3qm77ixu(!js
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
+LOGIN_URL='/login/'
+LOGIN_REDIRECT_URL='/login/'
 
 # Application definition
 
@@ -44,12 +46,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django.contrib.humanize',
     'core',
-    # 'django_hosts',
+    'django_hosts',
     'corsheaders'
 ]
 
 MIDDLEWARE = [
+    'django_hosts.middleware.HostsRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -58,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'django_hosts.middleware.HostsResponseMiddleware',
 ]
 
 #login by EMAIL not username
@@ -65,12 +71,16 @@ AUTHENTICATION_BACKENDS = [
     'classmanagement.backends.ExtendedUserModelBackend',
     ]
 
-ROOT_URLCONF = 'classmanagement.urls'
+
+ROOT_URLCONF = 'classmanagement.urls.urls'
+ROOT_HOSTCONF = 'classmanagement.hosts' 
+DEFAULT_HOST = 'static'
+PARENT_HOST = env('PARENT_HOST')
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
